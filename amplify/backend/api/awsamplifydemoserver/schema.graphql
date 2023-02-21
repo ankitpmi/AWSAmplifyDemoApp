@@ -1,0 +1,13 @@
+type Product @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  p_name: String
+  p_dec: String
+  P_amt: Int
+}
+
+type Todo @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  description: String
+}
+ 
