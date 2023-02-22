@@ -1,44 +1,9 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {API, graphqlOperation} from 'aws-amplify';
-import {GraphQLQuery} from '@aws-amplify/api';
-import {listTodos} from './src/graphql/queries';
-import {ListTodosQuery} from './src/API';
-import Home from './app/screens/Home';
+import React from 'react';
+// import Home from './app/screens/Home';
+import TodoScreen from './app/screens/TodoScreen';
 
 const App = () => {
-  useEffect(() => {
-    console.log('CALL');
-
-    const init = async () => {
-      const todos = await API.graphql<GraphQLQuery<ListTodosQuery>>(
-        graphqlOperation(listTodos),
-      );
-      if (todos) {
-        const {data} = todos;
-        console.log('TODO >>>> ', data?.listTodos?.items);
-      }
-    };
-    init();
-    // return () => {
-
-    // }
-  }, []);
-
-  return (
-    <View style={styles.container}>
-      {/* <Text>App</Text> */}
-      <Home />
-    </View>
-  );
+  return <TodoScreen />;
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
