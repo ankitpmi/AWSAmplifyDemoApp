@@ -10,7 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import {DataStore} from 'aws-amplify';
-import {Todo} from './models';
+import {Todo} from '../../src/models/';
 
 const Header = () => (
   <View style={styles.headerContainer}>
@@ -30,7 +30,7 @@ const AddTodoModal = ({
 
   async function addTodo() {
     console.log('call');
-    await DataStore.save(new Todo({name, description, isComplete: false}));
+    await DataStore.save(new Todo({name, description}));
     setModalVisible(false);
     setName('');
     setDescription('');
@@ -78,7 +78,7 @@ const TodoList = () => {
     //to be filled in a later step
     const subscription = DataStore.observeQuery(Todo).subscribe(snapshot => {
       //isSynced can be used to show a loading spinner when the list is being loaded.
-      const {items, isSynced} = snapshot;
+      const {items} = snapshot;
       setTodos(items);
     });
 
@@ -88,7 +88,7 @@ const TodoList = () => {
     };
   }, []);
 
-  async function deleteTodo(todo) {
+  async function deleteTodo(todo: any) {
     //to be filled in a later step
     try {
       await DataStore.delete(todo);
@@ -97,23 +97,14 @@ const TodoList = () => {
     }
   }
 
-  async function setComplete(updateValue, todo) {
-    //to be filled in a later step
-    await DataStore.save(
-      Todo.copyOf((todo: any, updated: any) => {
-        updated.isComplete = updateValue;
-      }),
-    );
-  }
-
   const renderItem = ({item}: {item: any}) => (
     <Pressable
       onLongPress={() => {
         deleteTodo(item);
       }}
-      onPress={() => {
-        setComplete(!item.isComplete, item);
-      }}
+      // onPress={() => {
+      //   setComplete(!item.isComplete, item);
+      // }}
       style={styles.todoContainer}>
       <Text>
         <Text style={styles.todoHeading}>{item.name}</Text>

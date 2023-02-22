@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {API, graphqlOperation} from 'aws-amplify';
 import {GraphQLQuery} from '@aws-amplify/api';
 import {listTodos} from './src/graphql/queries';
 import {ListTodosQuery} from './src/API';
-// import Home from './app/screens/Home';
+import Home from './app/screens/Home';
 
 const App = () => {
   useEffect(() => {
@@ -27,8 +27,8 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <Text>App</Text>
-      {/* <Home /> */}
+      {/* <Text>App</Text> */}
+      <Home />
     </View>
   );
 };
